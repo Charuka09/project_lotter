@@ -15,6 +15,7 @@ class Project(models.Model):
     title = models.CharField(max_length=50, blank=True)
     description = models.TextField(max_length=500, blank=True)
     time_added = models.DateTimeField(auto_now=True)
+    assignee = models.OneToOneField(User, default='', blank=True, on_delete=models.SET_DEFAULT)
     history = HistoricalRecords()
 
     def __str__(self):
