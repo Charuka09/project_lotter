@@ -5,13 +5,12 @@ from . import views
 
 urlpatterns = [
 
-    url(r'^$', auth_views.login),
+    url(r'^$', views.index, name='index'),
     url(r'^login$', auth_views.login, name='login'),
-
-    url(r'index$', views.index, name='index'),
 
     url(r'^logout$', auth_views.logout, {'next_page': 'login'}, name='logout'),
 
-    url(r'^draws/(?P<draw_id>\d+)/(?P<status>[^/]+)$', views.add_enrollment),
+    url(r'^draws/(?P<draw_id>\d+)/enrollments/(?P<status>[^/]+)$', views.modify_enrollments),
+    url(r'^draws/(?P<draw_id>\d+)/start$', views.start_project_draw),
 
 ]

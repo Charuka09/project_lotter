@@ -46,15 +46,18 @@
                                     </tr>
                             </thead>
                             <tbody>
-                            {% for p in projects %}
+                            {% for draw in upcoming_draws %}
                                 <tr>
-                                    <th scope="row">{{p.company}}</th>
-                                    <td>{{p.title}}</td>
-                                    <td>{{p.description}}</td>
+                                    <th scope="row">{{draw.project.company}}</th>
+                                    <td>{{draw.project.title}}</td>
+                                    <td>{{draw.project.description}}</td>
 
-                                    <td>{{p.scheduled_time}}</td>
-
-                                    <td><button class = "btn btn-outline-success" isClicked() >Enroll</button></td>
+                                    <td>{{draw.scheduled_time}}</td><td>
+                                               {% if leader in draw.enrollments.all %}
+                                    <button class = "btn btn-outline-success">Unenroll</button>
+                                        {% else %}
+                                        <button class = "btn btn-outline-success">Enroll</button>
+                                {% endif %}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>

@@ -1,12 +1,28 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from .models import Project, LotteryDraw
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
-from .models import Leader, LotteryDraw, Project
+from .models import Leader, LotteryDraw, Project, DrawEnrollments
+
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+
+
+class EmailRequiredMixin(object):
+    def __init__(self, *args, **kwargs):
+        super(EmailRequiredMixin, self).__init__(*args, **kwargs)
+        # make user email field required
+        self.fields['email'].required = True
+
+
+class MyUserCreationForm(EmailRequiredMixin, UserCreationForm):
+    pass
+
+
+class MyUserChangeForm(EmailRequiredMixin, UserChangeForm):
+    pass
 
 
 class LeaderInline(admin.StackedInline):
@@ -18,6 +34,10 @@ class LeaderInline(admin.StackedInline):
 
 class CustomUserAdmin(UserAdmin):
     inlines = (LeaderInline, )
+    form = MyUserChangeForm
+    add_form = MyUserCreationForm
+    add_fieldsets = ((None, {'fields': ('username', 'email',
+                                        'password1', 'password2'), 'classes': ('wide',)}),)
 
     def get_inline_instances(self, request, obj=None):
         if not obj:
