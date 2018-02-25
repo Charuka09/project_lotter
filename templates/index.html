@@ -1,27 +1,31 @@
 {% extends 'base.html' %}
-
+{% load static from staticfiles %}
 {% block title %}Home{% endblock %}
 {% block extra_header %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
             integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
             crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'js/index.js' %}"></script>
 {% endblock %}
 {% block extra_styles %}
     .header{
                 opacity: 0.5;
             }
+    .slide{
+        float:right;
+    }
+    .alert{
+        margin-bottom: 0; 
+    }
 {% endblock %}
 {% block content %}
           <div class = "header container">
-            <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <nav class="navbar navbar-light bg-faded">
+                <div>
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'logout' %}">logout</a>
+                        <li class="active">
+                            <button class="btn btn-outline-success slide"><a class="nav-link" href="{% url 'logout' %}">logout</a></button>
                         </li>
                     </ul>
                 </div>
@@ -30,13 +34,15 @@
         <br />
         <div class="container">
             <div>
-                <div class = "alert alert-success" role = "alert" ></div>
+                <div class = "alert alert-success" role = "alert" style="display:none;"><p id="displaySu"></p></div>
+                <div class = "alert alert-danger" role = "alert" style="display:none;"><p id="displayEr"></p></div>
             </div>
             <div >
                 <form class="form-group">
                     <table class = "table table-bordered">
                             <thead>
                                     <tr>
+                                      <th style="display:none;">#</th>
                                       <th>Company</th>
                                       <th>Project</th>
                                       <th>Description</th>
@@ -48,15 +54,15 @@
                             <tbody>
                             {% for draw in upcoming_draws %}
                                 <tr>
+                                    <td style="display:none;"><p class = "getId">{{draw.id}}</p></td>
                                     <th scope="row">{{draw.project.company}}</th>
                                     <td>{{draw.project.title}}</td>
                                     <td>{{draw.project.description}}</td>
-
                                     <td>{{draw.scheduled_time}}</td><td>
                                                {% if leader in draw.enrollments.all %}
-                                    <button class = "btn btn-outline-success">Unenroll</button>
+                                    <p id="btp"><button id ="bt" class = "btn btn-outline-success bt">Unenroll</button></p>
                                         {% else %}
-                                        <button class = "btn btn-outline-success">Enroll</button>
+                                        <p id="btp"><button id="bt" class = "btn btn-outline-success bt">Enroll</button></p>
                                 {% endif %}</td>
                                 </tr>
                             {% endfor %}
