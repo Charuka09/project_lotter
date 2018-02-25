@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 
-from lotter.models import LotteryDraw
+from lotter.models import LotteryDraw, Project
 from utils import start_draw
 
 
@@ -44,3 +44,8 @@ def start_project_draw(request, draw_id):
         return JsonResponse({'msg': 'error'}, status=404)
 
     return JsonResponse({'msg': 'success', 'winner': winner.first_name + ' '+ winner.last_name})
+
+
+def all_projects(request):
+    projects = Project.objects.all()
+    return render(request, 'all_projects.html',{'projects':projects})
