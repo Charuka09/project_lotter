@@ -10,7 +10,23 @@
 
      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+            crossorigin="anonymous">
+        </script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous">
+        </script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+            crossorigin="anonymous">
+        </script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+          <script src="{% static 'js/index.js' %}"></script>
   
 
 {% endblock %}
@@ -58,7 +74,6 @@
                 <ul class="nav navbar-nav ml-auto">
                     <li class="active">
                             <p><button class="btn btn-outline-success"><a class="nav-link" href="{% url 'logout' %}">logout</a></button></p>
-                            <!-- <div class = "alert alert-success" role = "alert"><p>hi</p></div> -->
                     </li>
                 </ul>
             </nav>
@@ -67,19 +82,18 @@
         <br />
         <div class="container">
             <div>
-                <div class = "alert alert-success" role = "alert" style="display:none;"><p id="displaySu"></p></div>
-                <div class = "alert alert-danger" role = "alert" style="display:none;"><p id="displayEr"></p></div>
+                <div id = "hidden1" class = "alert alert-success " role = "alert" style="display: none">Success</div>
+                <div id = "hidden2" class = "alert alert-danger " role = "alert" style="display: none">Error</div>
             </div>
             <div >
                 <form class="form-group">
                     <table class = "table table-bordered">
                             <thead>
                                     <tr>
-                                      <th style="display:none;">#</th>
+                                      <th >#</th>
                                       <th>Company</th>
                                       <th>Project</th>
                                       <th>Description</th>
-                                        <th>Time</th>
                                       <th>Enroll</th>
 
                                     </tr>
@@ -87,16 +101,17 @@
                             <tbody>
                             {% for draw in upcoming_draws %}
                                 <tr>
-                                    <td style="display:none;"><p class = "getId">{{draw.id}}</p></td>
+                                    <td ><p class = "getId">{{draw.id}}</p></td>
                                     <th scope="row">{{draw.project.company}}</th>
                                     <td>{{draw.project.title}}</td>
                                     <td>{{draw.project.description}}</td>
-                                    <td>{{draw.scheduled_time}}</td><td>
+                                    <td>
                                                {% if leader in draw.enrollments.all %}
-                                    <p id="btp"><button id ="bt" class = "btn btn-outline-success bt">Unenroll</button></p>
+                                    <p id="btp"><button id ="bt" class = "btn btn-outline-success">Unenroll</button></p>
                                         {% else %}
-                                        <p id="btp"><button id="bt" class = "btn btn-outline-success bt">Enroll</button></p>
-                                {% endif %}</td>
+                                        <p id="btp"><button id="bt" class = "btn btn-outline-success">Enroll</button></p>
+                                    {% endif %}
+                                    </td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -106,20 +121,5 @@
         </div>
 {% endblock %}
 {% block extra_footer %}
-     <script
-            src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-            crossorigin="anonymous">
-        </script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-            crossorigin="anonymous">
-        </script>
-        <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-            crossorigin="anonymous">
-        </script>
-          <script src="{% static 'js/index.js' %}"></script>
+     
 {% endblock %}
