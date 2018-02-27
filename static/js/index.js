@@ -1,28 +1,46 @@
 $(document).ready(function(){
-	var result;
+
     $("button").click(function(){
-        $('#bt').attr("disabled", true);
-        var id = $('.getId').text();
+
+        var val = $(this).val();
+        var id = $( "button" ).index( this );
+
+        $('#bt'+id).attr("disabled", true);
+
+        var disition = "";
+        if(val == "Enroll"){
+            disition = "add";
+        }
+        else{
+            disition ="remove";
+        }
+
         $.ajax({
-            url: "/draws"+id+"/enrollments/add",
             type: "GET",
-            dataType:'application/json',
-            success: function(result, status, xhr) {
-                console.log(result);
-                console.log(status);
-                var val = $("#btp").text();
-                if(val === "enroll")
-                    document.getElementById("demo").innerHTML = "unenroll";
-                else
-                    document.getElementById("demo").innerHTML = "enroll";
-                $('#demo').attr("disabled", false);
-                $("#displaySu").html("Succes");
+            url: "/draws/"+id+"/enrollments/"+disition,
+            success: function(data) {
+
+                console.log(data);
+                $('#bt'+id).attr("disabled", false);
+                if(disition === "add"){
+                    $("#btp"+id)
+                        .html("<button id =\"bt\" class = \"btn btn-outline-success\" value = \"Unenroll\">Unenroll</button>");
+                }
+                else{
+                    $("#btp"+id)
+                        .html("<button id=\"bt\" class = \"btn btn-outline-success\" value = \"Enroll\">Enroll</button>");
+                }
+
+                var h1 = document.getElementById("hidden1");
+                h1.style.display = 'block' ;
+
             },
-            error: function(xhr, status, error) {
-                console.log(status);
-                
-                $("#displayEr").html("error");
-            } 
+            error: function(status) {
+
+                var h2 = document.getElementById("hidden2");
+                h2.style.display = 'block' ;
+
+            }, 
         });
     });
-});
+ });
