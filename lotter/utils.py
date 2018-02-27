@@ -1,22 +1,26 @@
 from datetime import datetime
 from random import choice
 
-from lotter.models import LotteryDraw
+from lotter.models import ProjectDraw
 from django.contrib.auth.models import User
 
 
 def start_draw(draw_id=None):
     if draw_id is None:
         return True
-    draw = LotteryDraw.objects.get(id=draw_id)
-    time = datetime.now()
-    enrolls = draw.enrollments.all()
+    draw = ProjectDraw.objects.get(id=draw_id)
+    projects = draw.projects.all()
+    results = []
+    for p in projects:
+        eligibles = p.enrollments.filter(leader__eligibility=True)
+        winner = choice(eligibles)
 
-    elegibiles = enrolls.filter(leader__eligibility=True)
-    not_eligibles = enrolls.filter(leader__eligibility=False)
-
-    winner = choice(elegibiles)
-    return winner
+        winner.eligibility = False
+        winner.save()
+        p.assignee = winner
+        p.save()
+        results.append({'eligibles': eligibles, 'winner':winner})
+    return results
 
 
 def make_not_eligible_all(degree='IT'):

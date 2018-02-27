@@ -133,3 +133,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 LOGIN_URL = 'login'
 
 LOGIN_REDIRECT_URL = 'index'
+
+try:
+    from project_lotter.local_settings import *
+except ImportError:
+    pass

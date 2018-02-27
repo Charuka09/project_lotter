@@ -78,14 +78,14 @@
                                     </tr>
                             </thead>
                             <tbody>
-                            {% for draw in upcoming_draws %}
+                            {% for project in projects %}
                                 <tr>
-                                    <td style="display:none;"><p class = "getId">{{draw.id}}</p></td>
-                                    <th scope="row">{{draw.project.company}}</th>
-                                    <td>{{draw.project.title}}</td>
-                                    <td>{{draw.project.description}}</td>
-                                    <td>{{draw.scheduled_time}}</td><td>
-                                               {% if leader in draw.enrollments.all %}
+                                    <td style="display:none;"><p class = "getId">{{project.id}}</p></td>
+                                    <th scope="row">{{project.company}}</th>
+                                    <td>{{project.title}}</td>
+                                    <td>{{project.description}}</td>
+                                    <td>{{ next_draw.scheduled_date }} {{next_draw.scheduled_time}}</td><td>
+                                               {% if user in project.enrollments.all %}
                                     <p id="btp"><button id ="bt" class = "btn btn-outline-success bt">Unenroll</button></p>
                                         {% else %}
                                         <p id="btp"><button id="bt" class = "btn btn-outline-success bt">Enroll</button></p>

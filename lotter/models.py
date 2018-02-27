@@ -16,6 +16,7 @@ class Project(models.Model):
     description = models.TextField(max_length=500, blank=True)
     time_added = models.DateTimeField(auto_now=True)
     assignee = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    enrollments = models.ManyToManyField(User, editable=True, blank=True, related_name='project_enrollments')
     history = HistoricalRecords()
 
     def __str__(self):
@@ -41,26 +42,11 @@ def save_user_profile(sender, instance, **kwargs):
     instance.leader.save()
 
 
-class LotteryDraw(models.Model):
-    scheduled_time = models.DateTimeField(null=True, blank=True)
-    winner = models.OneToOneField(User, editable=False, null=True, on_delete=models.PROTECT)
-    enrollments = models.ManyToManyField(User, blank=True, related_name='draw_enrollments', through='DrawEnrollments')
-    project = models.OneToOneField(Project, on_delete=models.PROTECT)
-    finished = models.BooleanField(editable=False, default=False)
-    history = HistoricalRecords()
+class ProjectDraw(models.Model):
+    scheduled_date = models.DateField()
+    scheduled_time = models.TimeField()
+    finished = models.BooleanField(default=False, editable=False)
+    projects = models.ManyToManyField(Project, editable=True, blank=True, related_name='+')
 
     def __str__(self):
-        return self.project.title
-
-    def add_enrollment(self, leader):
-        draw = DrawEnrollments.objects.get_or_create(leader=leader, draw=self)
-
-    def remove_enrollment(self, leader):
-        DrawEnrollments.objects.get(leader=leader, draw=self).delete()
-
-
-class DrawEnrollments(models.Model):
-    leader = models.ForeignKey(User, editable=False, on_delete=models.PROTECT)
-    draw = models.ForeignKey(LotteryDraw, editable=False, on_delete=models.PROTECT)
-    modified_time = models.DateTimeField(auto_now=True)
-    history = HistoricalRecords()
+        return self.scheduled_date
