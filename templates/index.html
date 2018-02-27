@@ -3,30 +3,14 @@
 {% block title %}Home{% endblock %}
 
 {% block extra_header %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-            integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
-            crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script
-            src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-            crossorigin="anonymous">
-        </script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-            crossorigin="anonymous">
-        </script>
-        <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-            crossorigin="anonymous">
-        </script>
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-          <script src="{% static 'js/index.js' %}"></script>
+    <link 
+        rel="stylesheet" 
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <link 
+        rel="stylesheet" 
+        href="{% static 'css/countdown.css' %}">
   
 
 {% endblock %}
@@ -45,7 +29,7 @@
         color:white;
     }
     .header a:hover{
-        color:red;
+        color: #FF5733;
     }
     .ml-auto {
         margin-bottom: -15px;
@@ -53,9 +37,8 @@
 {% endblock %}
 
 {% block content %}
-        <div class="container-fluid header">
-          <div class = "container">
-
+    <div class="container-fluid header">
+        <div class = "container">
             <nav class="navbar navbar-toggleable-sm ">
 
                 <a class="navbar-brand" href="#">Project Lottery</a>
@@ -68,22 +51,64 @@
                         <a class="nav-link" href="#">Lottery Details</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'all_projects' %}">All Projects</a>
+                        <a class="nav-link" 
+                            href="{% url 'all_projects' %}">
+                            All Projects
+                        </a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav ml-auto">
                     <li class="active">
-                            <p><button class="btn btn-outline-success"><a class="nav-link" href="{% url 'logout' %}">logout</a></button></p>
+                        <p>
+                            <button 
+                                class="btn btn-outline-success">
+                                <a 
+                                    class="nav-link" 
+                                    href="{% url 'logout' %}">
+                                    logout
+                                </a>
+                            </button>
+                        </p>
                     </li>
                 </ul>
             </nav>
         </div>
     </div>
-        <br />
+    <div>
+        <div id="clockdiv">
+            <div>
+              <span class="days"></span>
+              <div class="smalltext">Days</div>
+            </div>
+            <div>
+              <span class="hours"></span>
+              <div class="smalltext">Hours</div>
+            </div>
+            <div>
+              <span class="minutes"></span>
+              <div class="smalltext">Minutes</div>
+            </div>
+            <div>
+              <span class="seconds"></span>
+              <div class="smalltext">Seconds</div>
+            </div>
+          </div>
+    </div>
         <div class="container">
             <div>
-                <div id = "hidden1" class = "alert alert-success " role = "alert" style="display: none">Success</div>
-                <div id = "hidden2" class = "alert alert-danger " role = "alert" style="display: none">Error</div>
+                <div   
+                    id = "hidden1" 
+                    class = "alert alert-success " 
+                    role = "alert" style="display: none">
+                    Success
+                </div>
+                <div 
+                    id = "hidden2" 
+                    class = "alert alert-danger " 
+                    role = "alert" 
+                    style="display: none">
+                    Error
+                </div>
             </div>
             <div >
                 <form class="form-group">
@@ -101,15 +126,37 @@
                             <tbody>
                             {% for draw in upcoming_draws %}
                                 <tr>
-                                    <td ><p class = "getId">{{draw.id}}</p></td>
-                                    <th scope="row">{{draw.project.company}}</th>
-                                    <td>{{draw.project.title}}</td>
-                                    <td>{{draw.project.description}}</td>
+                                    <td >
+                                        <p id = "getId"> {{draw.id}} </p>
+                                    </td>
+                                    <th scope="row">
+                                        {{draw.project.company}}
+                                    </th>
                                     <td>
-                                               {% if leader in draw.enrollments.all %}
-                                    <p id="btp"><button id ="bt" class = "btn btn-outline-success">Unenroll</button></p>
+                                        {{draw.project.title}}
+                                    </td>
+                                    <td>
+                                        {{draw.project.description}}
+                                    </td>
+                                    <td>
+                                        {% if leader in draw.enrollments.all %}
+                                            <p id="btp{{draw.id}}">
+                                                <button 
+                                                    id ="bt{{draw.id}}" 
+                                                    class = "btn btn-outline-success" 
+                                                    value="Unenroll">
+                                                    Unenroll
+                                                </button>
+                                            </p>
                                         {% else %}
-                                        <p id="btp"><button id="bt" class = "btn btn-outline-success">Enroll</button></p>
+                                        <p id="btp{{draw.id}}">
+                                            <button 
+                                                id="bt{{draw.id}}" 
+                                                class = "btn btn-outline-success" 
+                                                value="Enroll">
+                                                Enroll
+                                            </button>
+                                        </p>
                                     {% endif %}
                                     </td>
                                 </tr>
@@ -121,5 +168,26 @@
         </div>
 {% endblock %}
 {% block extra_footer %}
-     
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
+<!-- <script
+       src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+       integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+       crossorigin="anonymous">
+   </script>
+   <script
+       src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+       integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+       crossorigin="anonymous">
+   </script> -->
+   <!-- <script
+       src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+       integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+       crossorigin="anonymous">
+   </script> -->
+   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+     <script src="{% static 'js/index.js' %}"></script>
+     <script src="{% static 'js/countdown.js' %}"></script>
 {% endblock %}
