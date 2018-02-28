@@ -8,16 +8,21 @@
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
         integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
         crossorigin="anonymous">
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}">
     <link 
         rel="stylesheet" 
         href="{% static 'css/countdown.css' %}">
-  
+    <link
+        rel="stylesheet"
+        href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 
 {% endblock %}
 
 {% block extra_styles %}
     .header{
-        background-color: #576366;
+        background-color: #417690;
             }
     .slide{
         float:right;
@@ -26,10 +31,10 @@
         margin-bottom: 0; 
     }
     .header a{
-        color:white;
+        color:#ddd;
     }
     .header a:hover{
-        color: #FF5733;
+        color: #fff;
     }
     .ml-auto {
         margin-bottom: -15px;
@@ -61,7 +66,7 @@
                     <li class="active">
                         <p>
                             <button 
-                                class="btn btn-outline-success">
+                                class="btn btn-outline-info btn-sm">
                                 <a 
                                     class="nav-link" 
                                     href="{% url 'logout' %}">
@@ -168,7 +173,52 @@
         </div>
 {% endblock %}
 {% block extra_footer %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <footer>
+            <div class="socialMedia">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="lead">Contact us</p>
+                    </div>
+                    <div class="col-md-8">
+                        <nav>
+                            <ul >
+                                <!-- <div class="footer-social">
+                                        <a href="#" class="social-icons"><i class="fa fa-facebook"></i></a>
+                                        <a href="#" class="social-icons"><i class="fa fa-envelop"></i></a>
+                                        <a href="#" class="social-icons"><i class="fa fa-twitter"></i></a>
+                                </div> -->
+                                <li>
+                                    <a href="https://www.facebook.com/groups/173190899787687/?ref=bookmarks" class="social-icons"><i class="fa fa-facebook"></i></a>
+                                    
+                                </li>
+                                <li>
+                                    <a href="mailto:fitbatch16@gmail.com" class="social-icons"><i class="fa fa-envelope"></i></a>
+                                </li>
+                                <li>
+                                    <a href="https://twitter.com/UoMFIT16" class="social-icons"><i class="fa fa-twitter"></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>    
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; All rights reserved - <a href="">FIT-BATCH 16</a>
+            </div>
+        </footer>
+
+        <!-- external files for footer glyphicons   -->
+
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+        </script>
+
+        <script
+            src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+        </script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
