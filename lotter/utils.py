@@ -51,11 +51,11 @@ def send_password_email(first_name, pw, to):
     plaintext = get_template('email/send_password.txt')
     htmly = get_template('email/send_password.html')
 
-    d = Context({'first_name': first_name, 'password': pw})
+    d = {'first_name': first_name, 'password': pw}
 
     subject, from_email = 'Project Selector Account Activated', 'fitbatch16@gmail.com'
     text_content = plaintext.render(d)
     html_content = htmly.render(d)
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
-    msg.send()
+    return msg.send()
