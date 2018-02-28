@@ -15,8 +15,8 @@ class Project(models.Model):
     title = models.CharField(max_length=50, blank=True)
     description = models.TextField(max_length=500, blank=True)
     time_added = models.DateTimeField(auto_now=True)
-    assignee = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
-    enrollments = models.ManyToManyField(User, editable=True, blank=True, related_name='project_enrollments')
+    assignee = models.ForeignKey(User, null=True, blank=True, editable=False, on_delete=models.SET_NULL)
+    enrollments = models.ManyToManyField(User, editable=False, blank=True, related_name='project_enrollments')
     history = HistoricalRecords()
 
     def __str__(self):

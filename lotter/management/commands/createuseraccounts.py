@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand, CommandError
 from django.contrib.auth.models import User
-
+from lotter.utils import send_password_email
 
 # The class must be named Command, and subclass BaseCommand
 class Command(BaseCommand):
@@ -40,6 +40,7 @@ class Command(BaseCommand):
                 user.leader.phone = u[5]
                 user.save()
                 print user.username + ' '+pw
+                send_password_email(u[2], pw, u[4])
             except Exception as ex:
                 print 'Error in creating ' + u[3]
 
