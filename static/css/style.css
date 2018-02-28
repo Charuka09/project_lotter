@@ -7,7 +7,7 @@ nav{
 footer{
     background: #222;
     color: white;
-    text-align: center;
+    /* text-align: center; */
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -18,8 +18,9 @@ footer{
     font-family: Georgia, Times, serif;
     /* padding-top:32px; */
 }
-footer nav{
-    margin-top: 4px;
+.socialMedia{
+    margin-top: 5px;
+    padding: 0;
 }
 footer a{
     color: #ccc;
@@ -36,8 +37,7 @@ footer a:hover{
     background-color: #eee;
 } */
 .copyright{
-    border-top: 1px solid white;
-    padding-top: 5px;
+    font-size: 15px;
 }
 
 /* footer icons */
@@ -57,11 +57,6 @@ footer nav ul li{
     text-decoration: none;
 }
 
-/* Footer ul{
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 18px;
-} */
 
 
 Footer li{
@@ -81,12 +76,7 @@ Footer .fa{
     font-size: 20px;
     margin-right: 5px;
     margin-left: 5px;
-    /* background-color: #457f9b; */
     color: #fff;
-    /* border-radius: 51%;
-    padding: 5px;
-    height: 50px;
-    width: 50px; */
     text-align: center;
     line-height: 10px;
     text-decoration: none;
@@ -116,4 +106,16 @@ Footer .fa-twitter:hover{
 
 Footer .fa-twitter:focus{
     color:#00aced;
+}
+
+@media only screen and (max-width : 800px){
+    nav{
+        text-align: center;
+        padding-top: 5px;
+        padding-right: 20%;
+    }
+    .header.container ul{
+        text-align: left;
+        float: left;
+    }
 }
