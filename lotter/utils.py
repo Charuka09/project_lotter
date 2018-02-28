@@ -40,3 +40,13 @@ def make_not_eligible_all(degree='IT'):
             print ex
             return False
     return True
+
+
+def send_password(first_name, pw, to):
+    from django.core.mail import EmailMultiAlternatives
+    subject, from_email = 'Account created at Project Lotter', 'fitbatch16@gmail.com'
+    text_content = 'Hi %s!This is the password for your account at http://13.127.176.7. %s' %(first_name, pw)
+    html_content = '<p>Hi %s!</p><p>This is the password for your account at http://13.127.176.7.</p><h6>%s</h6>' %(first_name, pw)
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()

@@ -28,6 +28,7 @@ class Leader(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     eligibility = models.BooleanField(default=True, editable=True)
     degree = models.CharField(max_length=5, choices=DEGREE, default='IT')
+    phone = models.CharField(max_length=20, blank=True, null=True)
     history = HistoricalRecords()
 
 
