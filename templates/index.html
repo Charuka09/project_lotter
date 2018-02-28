@@ -47,9 +47,9 @@
         <div class = "container">
             <nav class="navbar navbar-toggleable-sm ">
 
-                <a class="navbar-brand" href="#">Project Lottery</a>
+                <a class="navbar-brand" href="/">Project Lottery</a>
 
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav hidden">
                     <li class="nav-item">
                         <a class="nav-link active" href="#">Home</a>
                     </li>
@@ -110,7 +110,7 @@
                 </div>
                 <div 
                     id = "hidden2" 
-                    class = "alert alert-danger " 
+                    class = "alert alert-danger"
                     role = "alert" 
                     style="display: none">
                     Error
@@ -130,34 +130,34 @@
                                     </tr>
                             </thead>
                             <tbody>
-                            {% for draw in upcoming_draws %}
+                            {% for project in projects %}
                                 <tr>
                                     <td >
-                                        <p id = "getId"> {{draw.id}} </p>
+                                        <p id = "getId"> {{project.id}} </p>
                                     </td>
                                     <th scope="row">
-                                        {{draw.project.company}}
+                                        {{project.company}}
                                     </th>
                                     <td>
-                                        {{draw.project.title}}
+                                        {{project.title}}
                                     </td>
                                     <td>
-                                        {{draw.project.description}}
+                                        {{project.description}}
                                     </td>
                                     <td>
-                                        {% if leader in draw.enrollments.all %}
-                                            <p id="btp{{draw.id}}">
+                                        {% if user in project.enrollments.all %}
+                                            <p id="btp{{project.id}}">
                                                 <button 
-                                                    id ="bt{{draw.id}}" 
+                                                    id ="bt{{project.id}}"
                                                     class = "btn btn-outline-success" 
                                                     value="Unenroll">
                                                     Unenroll
                                                 </button>
                                             </p>
                                         {% else %}
-                                        <p id="btp{{draw.id}}">
+                                        <p id="btp{{project.id}}">
                                             <button 
-                                                id="bt{{draw.id}}" 
+                                                id="bt{{project.id}}"
                                                 class = "btn btn-outline-success" 
                                                 value="Enroll">
                                                 Enroll

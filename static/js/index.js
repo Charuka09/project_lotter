@@ -17,7 +17,7 @@ $(document).ready(function(){
 
         $.ajax({
             type: "GET",
-            url: "/draws/"+id+"/enrollments/"+disition,
+            url: "/projects/"+id+"/enrollments/"+disition,
             success: function(data) {
 
                 console.log(data);
