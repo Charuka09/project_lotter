@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'lotter',
     'rest_framework',
-    'simple_history'
+    'simple_history',
+    'background_task'
 ]
 
 MIDDLEWARE = [
@@ -103,6 +104,63 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+        'custom': {
+          'format': "[%(asctime)s] %(levelname)s %(message)s",
+        },
+
+    },
+    'filters': {
+    'require_debug_false': {
+        '()': 'django.utils.log.RequireDebugFalse'
+    }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'lotter_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+            'formatter': 'custom',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django': {
+            'handlers':['console'],
+            'propagate': True,
+            'level':'ERROR',
+        },
+        '': {
+            'handlers': ['lotter_file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        }
+    }
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -134,6 +192,8 @@ LOGIN_URL = 'login'
 
 LOGIN_REDIRECT_URL = 'index'
 
+BACKGROUND_TASK_RUN_ASYNC = True
+MAX_ATTEMPTS = 3
 try:
     from project_lotter.local_settings import *
 except ImportError:

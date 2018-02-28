@@ -48,5 +48,3 @@ class ProjectDraw(models.Model):
     finished = models.BooleanField(default=False, editable=False)
     projects = models.ManyToManyField(Project, editable=True, blank=True, related_name='+')
 
-    def __str__(self):
-        return self.scheduled_date

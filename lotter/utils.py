@@ -4,7 +4,13 @@ from random import choice
 from lotter.models import ProjectDraw
 from django.contrib.auth.models import User
 
+from background_task import background
+import logging
 
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
+
+@background(schedule=60)
 def start_draw(draw_id=None):
     if draw_id is None:
         return True
@@ -19,9 +25,10 @@ def start_draw(draw_id=None):
         winner.save()
         p.assignee = winner
         p.save()
-        results.append({'eligibles': eligibles, 'winner':winner})
-    return results
-
+        draw.finished = True
+        draw.save()
+        results.append({'project_id':p.id,'project_title': p.title, 'eligibles': eligibles, 'winner':winner})
+    logger.debug(results)
 
 def make_not_eligible_all(degree='IT'):
     leaders = User.objects.filter(leader__degree=degree)
@@ -33,4 +40,3 @@ def make_not_eligible_all(degree='IT'):
             print ex
             return False
     return True
-
