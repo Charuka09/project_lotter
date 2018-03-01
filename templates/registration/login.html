@@ -1,47 +1,95 @@
 {% extends 'base.html' %}
-{% block extra_header %}
-    <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
-    <link rel="stylesheet" type="text/css" href="/static/admin/css/login.css" />
-{% endblock %}
+
 {% block title %}Login{% endblock %}
+{% block extra_styles %}
+    * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
+    }
 
+    .form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    @include box-sizing(border-box);
+
+    &:focus {
+    z-index: 2;
+    }
+    }
+
+    body {
+    background:#eee;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    }
+
+    .login-form {
+    margin-top: 60px;
+    }
+
+    form[role=login] {
+    color: #5d5d5d;
+    background: #fff;
+    padding: 26px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    }
+    form[role=login] img {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 35px;
+    }
+    form[role=login] input,
+    form[role=login] button {
+    font-size: 18px;
+    margin: 16px 0;
+    }
+    form[role=login] > div {
+    text-align: center;
+    }
+
+    .form-links {
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 50px;
+    }
+    .form-links a {
+    color: #fff;
+    }
+{% endblock %}
 {% block content %}
-    <body class=" login"
-          data-admin-utc-offset="0">
-
-    <!-- Container -->
-    <div id="container">
-        <!-- Header -->
-        <div id="header">
-            <div id="branding">
-                <h1 id="site-name"><a href="/">Project Selector Login</a></h1>
-            </div>
-        </div>
-        <!-- END Header -->
-        <!-- Content -->
-        <div id="content" class="colM">
-            <div id="content-main">
-
-
-
-                <form method="post" id="login-form">
-                    <div class="form-row">
-
+    <body class="login">
+    <div class="container">
+        <div class="row" id="pwd-container">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <section class="login-form">
+                    <form method="post" action="" role="login">
                         {% csrf_token %}
-                        {{ form.as_p }}
-
-                        <div class="submit-row">
-                            <label>&nbsp;</label><input type="submit" value="Log in" />
-                        </div>
-                    </div>
-                </form>
-
+                        <h2 style="text-align: center; margin-top: 5px; margin-bottom: 30px; color: #182c39;">Project Selector</h2>
+                        <input type="text" name="username" placeholder="Index No" required
+                               class="form-control input-lg"/>
+                        <input type="password" name="password" class="form-control input-lg" placeholder="Password"
+                               required=""/>
+                        {% if form.errors %}
+                            <p class=" label label-danger">
+                                Your username and password didn't match.
+                                Please try again.
+                            </p>
+                        {% endif %}
+                        <button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Login</button>
+                    </form>
+                </section>
             </div>
-            <br class="clear" />
+            <div class="col-md-4"></div>
         </div>
-        <!-- END Content -->
-        <div id="footer"></div>
     </div>
-    <!-- END Container -->
     </body>
 {% endblock %}
