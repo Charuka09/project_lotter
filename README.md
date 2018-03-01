@@ -7,7 +7,8 @@
 5. in bash run
   winpty python get-pip.py
 6. create a file project_selector in Documents
-7. open bash in that directory
+7. open git bash in that directory
+```shell
    mkdir envs
    cd envs 
    pip install virtualenv
@@ -19,3 +20,4 @@
    pip install -r requirements.txt
    python manage.py migrate
    python manage.py runserver
+```
