@@ -2,7 +2,7 @@
 
 1. install git bash
 2. install python 2.7 from https://www.python.org/downloads/release/python-2714/
-3. copy all details in the https://bootstrap.pypa.io/get-pip.py to the notepad and save it as the det-pip.py
+3. copy all details in the https://bootstrap.pypa.io/get-pip.py to the notepad and save it as the get-pip.py
 4. open git bash from the directory which you created get-pip.py
 5. in bash run
   winpty python get-pip.py
