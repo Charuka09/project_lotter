@@ -8,6 +8,13 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from simple_history.models import HistoricalRecords
+from utils import start_draw
+from datetime import datetime, date, time
+from django.utils import timezone
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 
 class Project(models.Model):
@@ -48,4 +55,17 @@ class ProjectDraw(models.Model):
     scheduled_time = models.TimeField()
     finished = models.BooleanField(default=False, editable=False)
     projects = models.ManyToManyField(Project, editable=True, blank=True, related_name='+')
+
+
+@receiver(post_save, sender='lotter.ProjectDraw')
+def add_scheduled_draw(sender, instance=None, created=None, update_fields=None, **kwargs):
+    if created:
+        aware_datetime = datetime.combine(instance.scheduled_date,instance.scheduled_time)
+        timezone.get_current_timezone().localize(aware_datetime)
+        start_draw(instance.id,schedule=aware_datetime)
+        logger.debug('Scheduled draw added in '+str(aware_datetime))
+
+    else:
+        pass
+    #TODO: Need add this functionality, What happens if we want to change the date time of the draw
 

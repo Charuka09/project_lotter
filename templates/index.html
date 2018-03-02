@@ -22,9 +22,10 @@
 {% endblock %}
 
 {% block middle %}
-    <div class="container">
-        <div class="row" style="padding-top: 60px">
-            <div id="clockdiv">
+
+    <div class="container" style="padding-top: 60px">
+        <div class="row">
+            <div id="clockdiv" {% if not projects %}style="display: none;"{% endif %}>
                 <div>
                     <span class="days"></span>
                     <div class="smalltext">Days</div>
@@ -44,7 +45,8 @@
             </div>
         </div>
     </div>
-    <div class="container">
+
+    <div class="container" {% if not projects %}style="padding-top: 60px"{% endif %}>
         <div>
             <div
                     id="hidden1"
@@ -61,8 +63,6 @@
             </div>
         </div>
         <div>
-
-
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -74,35 +74,42 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for project in projects %}
+                {% if projects %}
+                    {% for project in projects %}
+                        <tr>
+                            <td>
+                                <p id="getId"> {{ forloop.counter }} </p>
+                            </td>
+                            <th scope="row">
+                                {{ project.company }}
+                            </th>
+                            <td>
+                                {{ project.title }}
+                            </td>
+                            <td>
+                                {{ project.description }}
+                            </td>
+                            <td>
+                                {% if user in project.enrollments.all %}
+                                    <button type="button" project_id="{{ project.id }}"
+                                            class="btn btn-warning unenroll">
+                                        Unenroll
+                                    </button>
+                                {% else %}
+
+                                    <button type="button" project_id="{{ project.id }}" class="btn btn-primary enroll">
+                                        Enroll
+                                    </button>
+
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
                     <tr>
-                        <td>
-                            <p id="getId"> {{ forloop.counter }} </p>
-                        </td>
-                        <th scope="row">
-                            {{ project.company }}
-                        </th>
-                        <td>
-                            {{ project.title }}
-                        </td>
-                        <td>
-                            {{ project.description }}
-                        </td>
-                        <td>
-                            {% if user in project.enrollments.all %}
-                                <button type="button" project_id="{{ project.id }}" class="btn btn-warning unenroll">
-                                    Unenroll
-                                </button>
-                            {% else %}
-
-                                <button type="button" project_id="{{ project.id }}" class="btn btn-primary enroll">
-                                    Enroll
-                                </button>
-
-                            {% endif %}
-                        </td>
+                        <td colspan="5">No upcomming project draws.</td>
                     </tr>
-                {% endfor %}
+                {% endif %}
                 </tbody>
             </table>
         </div>

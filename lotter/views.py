@@ -44,7 +44,7 @@ def modify_enrollments(request, pid, status='add'):
     return JsonResponse({'msg': 'success'}, status=200)
 
 
-#@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_superuser)
 @api_view(['GET'])
 def start_project_draw(request, draw_id):
     results = None
