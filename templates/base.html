@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
 <head>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
-    {% block extra_header %}{% endblock %}
-    <style>
-        {% block extra_styles %}{% endblock %}
-    </style>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% block extra_header %}
+    {% endblock %}
+
+    {% block extra_styles %}{% endblock %}
+
 
 </head>
 <body>
 
-    {% block content %}{% endblock %}
-    {% block extra_footer %}{% endblock %}
+{% block content %}{% endblock %}
+{% block extra_footer %}
+
+
+
+
+{% endblock %}
 </body>
 </html>

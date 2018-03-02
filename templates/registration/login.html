@@ -2,67 +2,70 @@
 
 {% block title %}Login{% endblock %}
 {% block extra_styles %}
-    * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    outline: none;
-    }
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            outline: none;
+        }
 
-    .form-control {
-    position: relative;
-    font-size: 16px;
-    height: auto;
-    padding: 10px;
-    @include box-sizing(border-box);
+        .form-control {
+            position: relative;
+            font-size: 16px;
+            height: auto;
+            padding: 10px;
 
-    &:focus {
-    z-index: 2;
-    }
-    }
 
-    body {
-    background:#eee;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    }
+        }
 
-    .login-form {
-    margin-top: 60px;
-    }
+        body {
+            background: #eee;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
 
-    form[role=login] {
-    color: #5d5d5d;
-    background: #fff;
-    padding: 26px;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    }
-    form[role=login] img {
-    display: block;
-    margin: 0 auto;
-    margin-bottom: 35px;
-    }
-    form[role=login] input,
-    form[role=login] button {
-    font-size: 18px;
-    margin: 16px 0;
-    }
-    form[role=login] > div {
-    text-align: center;
-    }
+        .login-form {
+            margin-top: 60px;
+        }
 
-    .form-links {
-    text-align: center;
-    margin-top: 1em;
-    margin-bottom: 50px;
-    }
-    .form-links a {
-    color: #fff;
-    }
+        form[role=login] {
+            color: #5d5d5d;
+            background: #fff;
+            padding: 26px;
+            border-radius: 10px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+        }
+
+        form[role=login] img {
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 35px;
+        }
+
+        form[role=login] input,
+        form[role=login] button {
+            font-size: 18px;
+            margin: 16px 0;
+        }
+
+        form[role=login] > div {
+            text-align: center;
+        }
+
+        .form-links {
+            text-align: center;
+            margin-top: 1em;
+            margin-bottom: 50px;
+        }
+
+        .form-links a {
+            color: #fff;
+        }
+    </style>
 {% endblock %}
 {% block content %}
     <body class="login">
@@ -73,7 +76,8 @@
                 <section class="login-form">
                     <form method="post" action="" role="login">
                         {% csrf_token %}
-                        <h2 style="text-align: center; margin-top: 5px; margin-bottom: 30px; color: #182c39;">Project Selector</h2>
+                        <h2 style="text-align: center; margin-top: 5px; margin-bottom: 30px; color: #182c39;">Project
+                            Selector</h2>
                         <input type="text" name="username" placeholder="Index No" required
                                class="form-control input-lg"/>
                         <input type="password" name="password" class="form-control input-lg" placeholder="Password"

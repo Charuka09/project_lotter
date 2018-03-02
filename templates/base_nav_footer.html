@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block content %}
+    {% block header %}
+        {% include 'common_includes/navbar.html' %}
+    {% endblock %}
+    <div class="content">
+    {% block middle %}
+        <div class="content"></div>
+    {% endblock %}
+    </div>
+    {% block footer %}
+        {% include 'common_includes/footer.html' %}
+    {% endblock footer %}
+{% endblock %}
