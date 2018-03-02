@@ -4,17 +4,17 @@
 
 {% block extra_header %}
     <link
-        rel="stylesheet"
-        href="{% static 'css/countdown.css' %}">
+            rel="stylesheet"
+            href="{% static 'css/countdown.css' %}">
     <link
-        rel="stylesheet"
-        href="{% static 'css/style.css' %}">
+            rel="stylesheet"
+            href="{% static 'css/style.css' %}">
     <link
-        rel="stylesheet"
-        href="{% static 'css/footer.css' %}">
+            rel="stylesheet"
+            href="{% static 'css/footer.css' %}">
     <link
-        rel="stylesheet"
-        href="{% static 'css/nabar.css' %}">
+            rel="stylesheet"
+            href="{% static 'css/nabar.css' %}">
 {% endblock %}
 
 
@@ -23,106 +23,93 @@
 
 {% block middle %}
     <div class="container">
-    <div class="row" style="padding-top: 60px">
-        <div id="clockdiv">
-            <div>
-              <span class="days"></span>
-              <div class="smalltext">Days</div>
-            </div>
-            <div>
-              <span class="hours"></span>
-              <div class="smalltext">Hours</div>
-            </div>
-            <div>
-              <span class="minutes"></span>
-              <div class="smalltext">Minutes</div>
-            </div>
-            <div>
-              <span class="seconds"></span>
-              <div class="smalltext">Seconds</div>
-            </div>
-          </div>
-    </div>
-    </div>
-        <div class="container">
-            <div>
-                <div
-                    id = "hidden1"
-                    class = "alert alert-success "
-                    role = "alert" style="display: none">
-                    Success
+        <div class="row" style="padding-top: 60px">
+            <div id="clockdiv">
+                <div>
+                    <span class="days"></span>
+                    <div class="smalltext">Days</div>
                 </div>
-                <div
-                    id = "hidden2"
-                    class = "alert alert-danger"
-                    role = "alert"
-                    style="display: none">
-                    Error
+                <div>
+                    <span class="hours"></span>
+                    <div class="smalltext">Hours</div>
                 </div>
-            </div>
-            <div >
-                <form class="form-group">
-                    <table class = "table table-bordered">
-                            <thead>
-                                    <tr>
-                                      <th >#</th>
-                                      <th>Company</th>
-                                      <th>Project</th>
-                                      <th>Description</th>
-                                      <th>Enroll</th>
-
-                                    </tr>
-                            </thead>
-                            <tbody>
-                            {% for project in projects %}
-                                <tr>
-                                    <td >
-                                        <p id = "getId"> {{project.id}} </p>
-                                    </td>
-                                    <th scope="row">
-                                        {{project.company}}
-                                    </th>
-                                    <td>
-                                        {{project.title}}
-                                    </td>
-                                    <td>
-                                        {{project.description}}
-                                    </td>
-                                    <td>
-                                        {% if user in project.enrollments.all %}
-                                            <p id="btp{{project.id}}">
-                                                <button
-                                                    id ="bt{{project.id}}"
-                                                    class = "btn btn-outline-success"
-                                                    value="Unenroll">
-                                                    Unenroll
-                                                </button>
-                                            </p>
-                                        {% else %}
-                                        <p id="btp{{project.id}}">
-                                            <button
-                                                id="bt{{project.id}}"
-                                                class = "btn btn-outline-success"
-                                                value="Enroll">
-                                                Enroll
-                                            </button>
-                                        </p>
-                                    {% endif %}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                    </table>
-                </form>
+                <div>
+                    <span class="minutes"></span>
+                    <div class="smalltext">Minutes</div>
+                </div>
+                <div>
+                    <span class="seconds"></span>
+                    <div class="smalltext">Seconds</div>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="container">
+        <div>
+            <div
+                    id="hidden1"
+                    class="alert alert-success "
+                    role="alert" style="display: none">
+                Success
+            </div>
+            <div
+                    id="hidden2"
+                    class="alert alert-danger"
+                    role="alert"
+                    style="display: none">
+                Error
+            </div>
+        </div>
+        <div>
+
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Priority</th>
+                    <th>Company</th>
+                    <th>Project</th>
+                    <th>Description</th>
+                    <th>Enroll</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for project in projects %}
+                    <tr>
+                        <td>
+                            <p id="getId"> {{ forloop.counter }} </p>
+                        </td>
+                        <th scope="row">
+                            {{ project.company }}
+                        </th>
+                        <td>
+                            {{ project.title }}
+                        </td>
+                        <td>
+                            {{ project.description }}
+                        </td>
+                        <td>
+                            {% if user in project.enrollments.all %}
+                                <button type="button" project_id="{{ project.id }}" class="btn btn-warning unenroll">
+                                    Unenroll
+                                </button>
+                            {% else %}
+
+                                <button type="button" project_id="{{ project.id }}" class="btn btn-primary enroll">
+                                    Enroll
+                                </button>
+
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 {% endblock %}
 {% block extra_footer %}
-
-        <!-- external files for footer glyphicons   -->
-
-
-     <script src="{% static 'js/index.js' %}"></script>
-     <script src="{% static 'js/countdown.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/countdown.js' %}"></script>
 {% endblock %}

@@ -1,46 +1,56 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
-    $("button").click(function(){
-
-        var val = $(this).val();
-        var id = $( "button" ).index( this );
-
-        $('#bt'+id).attr("disabled", true);
-
-        var disition = "";
-        if(val == "Enroll"){
-            disition = "add";
-        }
-        else{
-            disition ="remove";
-        }
-
+    $("td").on('click', '.enroll', function (e) {
+        var b = $(this);
+        b.prop("disabled", true);
         $.ajax({
             type: "GET",
-            url: "/projects/"+id+"/enrollments/"+disition,
-            success: function(data) {
+            url: "/projects/" + b.attr("project_id") + "/enrollments/add",
+            success: function (data) {
 
                 console.log(data);
-                $('#bt'+id).attr("disabled", false);
-                if(disition === "add"){
-                    $("#btp"+id)
-                        .html("<button id =\"bt\" class = \"btn btn-outline-success\" value = \"Unenroll\">Unenroll</button>");
-                }
-                else{
-                    $("#btp"+id)
-                        .html("<button id=\"bt\" class = \"btn btn-outline-success\" value = \"Enroll\">Enroll</button>");
-                }
+                b.attr("disabled", false);
 
-                var h1 = document.getElementById("hidden1");
-                h1.style.display = 'block' ;
+                b.removeClass("enroll");
+                b.removeClass("btn-primary");
+                b.addClass("unenroll");
+                b.addClass("btn-warning");
+
+                b.text('Unenroll');
 
             },
-            error: function(status) {
-
+            error: function (status) {
                 var h2 = document.getElementById("hidden2");
-                h2.style.display = 'block' ;
-
-            }, 
+                h2.style.display = 'block';
+                console.log("Error in enrolling " + b.attr("project_id") + "-" + status.status);
+            }
         });
     });
- });
+
+    $("td").on('click', '.unenroll', function (e) {
+        var b = $(this);
+        b.prop("disabled", true);
+        $.ajax({
+            type: "GET",
+            url: "/projects/" + b.attr("project_id") + "/enrollments/remove",
+            success: function (data) {
+
+                console.log(data);
+                b.attr("disabled", false);
+
+                b.removeClass("unenroll");
+                b.removeClass("btn-warning");
+                b.addClass("enroll");
+                b.addClass("btn-primary");
+
+                b.text('Enroll');
+            },
+            error: function (status) {
+                var h2 = document.getElementById("hidden2");
+                h2.style.display = 'block';
+                console.log("Error in unenrolling " + b.attr("project_id") + "-" + status.status);
+            }
+        });
+    });
+
+});
