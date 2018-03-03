@@ -69,6 +69,6 @@ def send_results_email(result):
     text_content = plaintext.render(result)
     html_content = htmly.render(result)
     msg = EmailMultiAlternatives(subject, text_content, from_email, all_emails)
-    #msg = EmailMultiAlternatives(subject, text_content, from_email, ['sandaruchamath@gmail.com'])
+    #msg = EmailMultiAlternatives(subject, text_content, from_email, ['sandaruchamath@gmail.com', 'yohankulasinghe@gmail.com'])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
