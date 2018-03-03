@@ -32,7 +32,7 @@ def start_draw(draw_id=None):
             p.assignee = winner
             p.save()
 
-            results.append({'project_id':p.id,'project_title': p.title, 'eligibles': eligibles, 'winner': winner})
+            results.append({'project_id':p.id,'project_company':p.company, 'project_title': p.title, 'eligibles': eligibles, 'winner': winner})
         else:
             results.append({'project_id': p.id, 'project_title': p.title, 'eligibles': eligibles, 'winner': ''})
     draw.finished = True
@@ -63,19 +63,12 @@ def send_results_email(result):
     from django.template.loader import get_template
     from django.template import Context
     plaintext = get_template('email/send_results.txt')
-    htmly = get_template('email/send_results.txt')
-    from django.core import mail
-    connection = mail.get_connection()
-    connection.open()
+    htmly = get_template('email/send_results.html')
     subject, from_email = 'Project Selector - %s Draw Results'%str(result.get('time','')), 'fitbatch16@gmail.com'
     all_emails = [ u.email for u in User.objects.all()]
-    for p in result.get('results',[]):
-        text_content = plaintext.render(p)
-        html_content = htmly.render(p)
-        msg = EmailMultiAlternatives(subject, text_content, from_email, all_emails)
-        #msg = EmailMultiAlternatives(subject, text_content, from_email, ['sandaruchamath@gmail.com'])
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
-
-
-    connection.close()
+    text_content = plaintext.render(result)
+    html_content = htmly.render(result)
+    msg = EmailMultiAlternatives(subject, text_content, from_email, all_emails)
+    #msg = EmailMultiAlternatives(subject, text_content, from_email, ['sandaruchamath@gmail.com'])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()

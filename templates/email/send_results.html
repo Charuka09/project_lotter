@@ -328,19 +328,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                    {% for project in projects %}
+                    {% for project in results %}
                         <tr>
                             <td>
                                  {{ forloop.counter }}
                             </td>
                             <th>
-                                {{ project.company }}
+                                {{ project.project_company }}
                             </th>
                             <td>
                                 {{ project.title }}
                             </td>
                             <td>
-                                {{ project.assignee }}
+                                {{ project.winner.username }}
                             </td>
 
                         </tr>
