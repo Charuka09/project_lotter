@@ -34,7 +34,7 @@ def start_draw(draw_id=None):
 
             results.append({'project_id':p.id,'project_company':p.company, 'project_title': p.title, 'eligibles': eligibles, 'winner': winner})
         else:
-            results.append({'project_id': p.id, 'project_title': p.title, 'eligibles': eligibles, 'winner': ''})
+            results.append({'project_id': p.id, 'project_company':p.company, 'project_title': p.title, 'eligibles': eligibles, 'winner': ''})
     draw.finished = True
     draw.save()
     r = {'draw_id': draw_id, 'time': aware_datetime, 'results': results}
