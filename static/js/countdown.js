@@ -37,5 +37,3 @@ function getTimeRemaining(endtime) {
     var timeinterval = setInterval(updateClock, 1000);
   }
   //put the time here !!
-  var deadline = "Tue Feb 27 2018 21:57:25 GMT+0530 (Sri Lanka Standard Time)";
-  initializeClock('clockdiv', deadline);

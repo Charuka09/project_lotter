@@ -27,34 +27,20 @@ def start_draw(draw_id=None):
         if eligibles:
             winner = choice(eligibles)
 
-            winner.eligibility = False
+            winner.leader.eligibility = False
             winner.save()
             p.assignee = winner
             p.save()
 
             results.append({'project_id':p.id,'project_title': p.title, 'eligibles': eligibles, 'winner': winner})
         else:
-            draw.finished = True
-            draw.save()
             results.append({'project_id': p.id, 'project_title': p.title, 'eligibles': eligibles, 'winner': ''})
-
+    draw.finished = True
+    draw.save()
     r = {'draw_id': draw_id, 'time': aware_datetime, 'results': results}
     logger.debug(r)
     print (r)
-
-
-
-def make_not_eligible_all(degree='IT'):
-    leaders = User.objects.filter(leader__degree=degree)
-    for l in leaders:
-        try:
-            l.leader.eligibility = False
-            l.save()
-        except Exception as ex:
-            print ex
-            return False
-    return True
-
+    send_results_email(r)
 
 def send_password_email(first_name, pw, to):
     from django.core.mail import EmailMultiAlternatives
@@ -78,16 +64,18 @@ def send_results_email(result):
     from django.template import Context
     plaintext = get_template('email/send_password.txt')
     htmly = get_template('email/send_password.html')
-    from django.core import mail
-    connection = mail.get_connection()
-    connection.open()
-    subject, from_email = 'Project Selector - %s Draw Results'%str(result.get('time','')), 'fitbatch16@gmail.com'
-    for p in result.get('results',[]):
-        text_content = plaintext.render(p)
-        html_content = htmly.render(p)
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
-
-
-    connection.close()
+    print (htmly)
+    logger.debug(htmly)
+    # from django.core import mail
+    # connection = mail.get_connection()
+    # connection.open()
+    # subject, from_email = 'Project Selector - %s Draw Results'%str(result.get('time','')), 'fitbatch16@gmail.com'
+    # for p in result.get('results',[]):
+    #     text_content = plaintext.render(p)
+    #     html_content = htmly.render(p)
+    #     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    #     msg.attach_alternative(html_content, "text/html")
+    #     msg.send()
+    #
+    #
+    # connection.close()

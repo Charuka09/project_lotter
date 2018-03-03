@@ -1,0 +1,53 @@
+{% extends 'base_nav_footer.html' %}
+{% load static from staticfiles %}
+{% block title %}Project{% endblock %}
+
+{% block extra_header %}
+    <link
+            rel="stylesheet"
+            href="{% static 'css/style.css' %}">
+    <link
+            rel="stylesheet"
+            href="{% static 'css/footer.css' %}">
+    <link
+            rel="stylesheet"
+            href="{% static 'css/nabar.css' %}">
+{% endblock %}
+
+{% block middle %}
+     <div class="container" style="padding-top: 70px">
+     <h1 style=" padding-top: 60px; text-align: center;">Eligibles to the draw</h1>
+        <div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Index</th>
+                    <th>First name</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if eligibles %}
+                    {% for e in eligibles %}
+                        <tr {% if user == e %}style="background-color:#25E8F2"{% endif %}>
+                            <th>
+                                {{ e.username }}
+                            </th>
+                            <td>
+                                {{ e.first_name }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="2">No enrollments.</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_footer %}
+    <script src="{% static 'js/index.js' %}"></script>
+{% endblock %}

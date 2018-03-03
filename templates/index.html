@@ -77,16 +77,16 @@
                 {% if projects %}
                     {% for project in projects %}
                         <tr>
-                            <td>
+                            <td class="clickable-cell" data-href='/projects/{{ project.id }}'>
                                 <p id="getId"> {{ forloop.counter }} </p>
                             </td>
-                            <th scope="row">
+                            <td class="clickable-cell" data-href='/projects/{{ project.id }}'>
                                 {{ project.company }}
                             </th>
-                            <td>
+                            <td class="clickable-cell" data-href='/projects/{{ project.id }}'>
                                 {{ project.title }}
                             </td>
-                            <td>
+                            <td class="clickable-cell" data-href='/projects/{{ project.id }}'>
                                 {{ project.description }}
                             </td>
                             <td>
@@ -96,7 +96,6 @@
                                         Unenroll
                                     </button>
                                 {% else %}
-
                                     <button type="button" project_id="{{ project.id }}" class="btn btn-primary enroll">
                                         Enroll
                                     </button>
@@ -114,7 +113,13 @@
             </table>
         </div>
     </div>
+    <script>
+    $(document).ready(function () {
+        var deadline = "Tue Mar 4 2018 19:00:00 GMT+0530 (Sri Lanka Standard Time)";
+        initializeClock('clockdiv', deadline);
+    });
 
+    </script>
 {% endblock %}
 {% block extra_footer %}
     <script src="{% static 'js/index.js' %}"></script>

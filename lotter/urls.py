@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^logout$', auth_views.logout, {'next_page': 'login'}, name='logout'),
 
     url(r'^projects/(?P<pid>\d+)/enrollments/(?P<status>[^/]+)$', views.modify_enrollments),
+    url(r'^projects/(?P<pid>\d+)/$', views.view_project),
     url(r'^draws/(?P<draw_id>\d+)/start$', views.start_project_draw),
     url(r'^all_projects', views.all_projects, name='all_projects'),
 ]

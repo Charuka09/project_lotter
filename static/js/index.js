@@ -53,4 +53,9 @@ $(document).ready(function () {
         });
     });
 
+$("tbody").on('click', '.clickable-cell', function (e){
+        window.location = $(this).data("href");
+    });
+
+
 });

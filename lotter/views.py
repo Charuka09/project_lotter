@@ -23,7 +23,14 @@ def index(request):
     projects = next_draw.projects.all().order_by('id') if next_draw else []
     return render(request, 'index.html', {'next_draw': next_draw, 'projects':projects, 'user': request.user})
 
-
+@login_required
+def view_project(request, pid):
+    try:
+        p = Project.objects.get(id=pid)
+        eligibles = p.enrollments.filter(leader__eligibility=True)
+        return render(request, 'view_project.html', {'eligibles': eligibles, 'user': request.user})
+    except Exception as ex:
+        return render(request, 'view_project.html', {'eligibles': [], 'user': request.user})
 @login_required
 @user_passes_test(lambda u: not u.is_superuser)
 @api_view(['GET'])
@@ -34,8 +41,9 @@ def modify_enrollments(request, pid, status='add'):
         return JsonResponse({'msg': 'error'}, status=404)
     else:
         if status == 'add':
-            project.enrollments.add(request.user)
-            project.save()
+            if request.user not in project.enrollments.all():
+                project.enrollments.add(request.user)
+                project.save()
         elif status == 'remove':
             project.enrollments.remove(request.user)
             project.save()
