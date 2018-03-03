@@ -62,20 +62,20 @@ def send_results_email(result):
     from django.core.mail import EmailMultiAlternatives
     from django.template.loader import get_template
     from django.template import Context
-    plaintext = get_template('email/send_password.txt')
-    htmly = get_template('email/send_password.html')
-    print (htmly)
-    logger.debug(htmly)
-    # from django.core import mail
-    # connection = mail.get_connection()
-    # connection.open()
-    # subject, from_email = 'Project Selector - %s Draw Results'%str(result.get('time','')), 'fitbatch16@gmail.com'
-    # for p in result.get('results',[]):
-    #     text_content = plaintext.render(p)
-    #     html_content = htmly.render(p)
-    #     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-    #     msg.attach_alternative(html_content, "text/html")
-    #     msg.send()
-    #
-    #
-    # connection.close()
+    plaintext = get_template('email/send_results.txt')
+    htmly = get_template('email/send_results.txt')
+    from django.core import mail
+    connection = mail.get_connection()
+    connection.open()
+    subject, from_email = 'Project Selector - %s Draw Results'%str(result.get('time','')), 'fitbatch16@gmail.com'
+    all_emails = [ u.email for u in User.objects.all()]
+    for p in result.get('results',[]):
+        text_content = plaintext.render(p)
+        html_content = htmly.render(p)
+        msg = EmailMultiAlternatives(subject, text_content, from_email, all_emails)
+        #msg = EmailMultiAlternatives(subject, text_content, from_email, ['sandaruchamath@gmail.com'])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
+
+
+    connection.close()
