@@ -324,14 +324,15 @@
                     <th>Priority</th>
                     <th>Company</th>
                     <th>Project</th>
-                    <th>Winner</th>
+                    <th>Winner index</th>
+                    <th>Winner name</th>
                 </tr>
                 </thead>
                 <tbody>
                     {% for project in results %}
                         <tr>
                             <td>
-                                 {{ forloop.counter }}
+                                 {{ project_id|add:"-18" }}
                             </td>
                             <th>
                                 {{ project.project_company }}
@@ -342,7 +343,9 @@
                             <td>
                                 {{ project.winner.username }}
                             </td>
-
+                            <td>
+                                {{ project.winner.first_name }}
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>

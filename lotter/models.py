@@ -27,7 +27,7 @@ class Project(models.Model):
     history = HistoricalRecords()
 
     def __str__(self):
-        return self.title
+        return self.company
 
 
 class Leader(models.Model):
